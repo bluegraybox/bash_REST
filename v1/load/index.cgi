@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 
 echo "Content-type:text/plain"
 echo 
-uptime
+
+/usr/local/opt/coreutils/libexec/gnubin/uptime

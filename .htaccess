@@ -1,3 +1,3 @@
+DirectoryIndex index.cgi
 <Limit GET PUT POST OPTIONS>
-    Require all granted
 </Limit>

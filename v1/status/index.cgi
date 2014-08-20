@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 
 dir=`dirname $0`
 filename=$dir/status.txt

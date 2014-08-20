@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 
 accept=${HTTP_ACCEPT,,}
 
 if [ "$accept" != "${accept/application\/json/}" ] ; then
     echo "Content-type: application/json"
     echo
-    uptime | sed -r 's/^.*load average: (.*), (.*), (.*)/{"load": {"1": \1, "5": \2, "15": \3}}/;'
+    /usr/local/opt/coreutils/libexec/gnubin/uptime | /usr/local/opt/gnu-sed/libexec/gnubin/sed -r 's/^.*load average: (.*), (.*), (.*)/{"load": {"1": \1, "5": \2, "15": \3}}/;'
 else
     if [ "$accept" != "${accept/text\/html}" ] ; then
         echo "Content-type: text/html"

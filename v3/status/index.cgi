@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 
 dir=`dirname $0`
 filename=$dir/status.txt
 status=`cat $filename`
-etag=`echo $status | sha1sum | cut -d ' ' -f 1`
+etag=`echo $status | /usr/local/opt/coreutils/libexec/gnubin/sha1sum | cut -d ' ' -f 1`
 
 accept=${HTTP_ACCEPT,,}
 method=${REQUEST_METHOD^^}

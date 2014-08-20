@@ -4,7 +4,17 @@ This is some example code I worked up to demonstrate a couple of points about HT
 
 ## Installation
 
-You need to have bash installed and apache configured to let you run CGI scripts. I've only run them on Linux, but they probably work on OS X too.
+You need to have Bash installed and apache configured to let you run CGI scripts. On OS X, you'll need to add the homebrew versions of a few utilities; they're either out-of-date or not included.
+
+```
+brew install bash coreutils gnu-sed
+```
+
+Enable CGI scripts by uncommenting this line in `/etc/apache2/httpd.conf`:
+
+```
+AddHandler cgi-script .cgi
+```
 
 Clone this project to any directory you're allowed to run CGI scripts from.
 
