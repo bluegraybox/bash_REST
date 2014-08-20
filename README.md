@@ -4,7 +4,7 @@ This is some example code I worked up to demonstrate a couple of points about HT
 
 ## Installation
 
-You need to have bash installed and apache configured to let you run CGI scripts. I've only run them on Linux, but they probably work on OS X too.
+You need to have bash installed and apache configured to let you run CGI scripts. The `master` branch should run on any flavor of Linux. Check out the `osx` branch if you want to run this on a Mac. (The README in that branch has additional setup instructions.)
 
 Clone this project to any directory you're allowed to run CGI scripts from.
 
