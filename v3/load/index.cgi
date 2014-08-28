@@ -14,16 +14,16 @@ else
             echo "Content-type: text/html"
             echo
             echo "<h1><code>load</code></h1>"
-            echo "<p>Die 'load' Ressource enthält das Unix-System Lastinformationen für diesen Server.</p>"
-            echo "<p><code>GET</code> ist die einzige gültige Methode.</p>"
-            echo "<p>Daten als <code>application/json</code> zurück.</p>"
+            echo "<p>Die 'load' Ressource enth&auml;lt das Unix-System Lastinformationen f&uuml;r diesen Server.</p>"
+            echo "<p><code>GET</code> ist die einzige g&uuml;ltige Methode.</p>"
+            echo "<p>Daten als <code>application/json</code> zur&uuml;ck.</p>"
         else
             echo "Content-type: text/plain"
             echo
             echo "LOAD"
-            echo "Die 'load' Ressource enthält das Unix-System Lastinformationen für diesen Server."
-            echo "GET ist die einzige gültige Methode."
-            echo "Daten als application/json zurück."
+            echo "Die 'load' Ressource enth&auml;lt das Unix-System Lastinformationen f&uuml;r diesen Server."
+            echo "GET ist die einzige g&uuml;ltige Methode."
+            echo "Daten als application/json zur&uuml;ck."
         fi
     else
         if [ "$accept" != "${accept/text\/html}" ] ; then
