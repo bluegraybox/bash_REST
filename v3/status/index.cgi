@@ -3,13 +3,17 @@
 dir=`dirname $0`
 filename=$dir/status.txt
 status=`cat $filename`
-etag=`echo $status | sha1sum | cut -d ' ' -f 1`
 
 accept=${HTTP_ACCEPT,,}
 method=${REQUEST_METHOD^^}
 
 if [ "$method" == "GET" ] ; then
     if [ "$accept" != "${accept/application\/json/}" ] ; then
+        # status file timestamp: will be different if content was changed, then changed back
+        #etag=`ls -l --time-style=+%s $filename | cut -d ' ' -f 6`
+        # sha1 digest of status file contents: will only be different if content is actually different
+        #   amazingly, this is slightly faster than timestamp formatting
+        etag=`echo $status | sha1sum | cut -d ' ' -f 1`
         if [ "$HTTP_IF_NONE_MATCH" == "$etag" ] ; then
             echo "Content-type: text/plain"
             echo "Status: 304"
