@@ -2,6 +2,8 @@
 
 accept=${HTTP_ACCEPT,,}
 
+# The accept header may have multiple types, so we check if it's the same with 'application/json' replaced by ''.
+#     I.e. If it contains 'application/json', it won't be the same with it removed.
 if [ "$accept" != "${accept/application\/json/}" ] ; then
     echo "Content-type: application/json"
     echo
