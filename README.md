@@ -198,6 +198,7 @@ Date: Mon, 18 Aug 2014 18:35:53 GMT
 Server: Apache/2.4.7 (Ubuntu)
 
 ```
+```
 $ curl -si -H "Accept-Language: de" $BASE_URL/api/v3/load/
 HTTP/1.1 200 OK
 Date: Fri, 29 Aug 2014 23:22:21 GMT
@@ -208,9 +209,9 @@ Transfer-Encoding: chunked
 Content-Type: text/plain
 
 LOAD
-Die 'load' Ressource enth&auml;lt das Unix-System Lastinformationen f&uuml;r diesen Server.
-GET ist die einzige g&uuml;ltige Methode.
-Daten als application/json zur&uuml;ck.
+Die 'load' Ressource enthält das Unix-System Lastinformationen für diesen Server.
+GET ist die einzige gültige Methode.
+Daten als application/json zurück.
 ```
 ```
 $ curl -si -H "Accept: text/html" -H "Accept-Language: de" $BASE_URL/api/v3/load/

@@ -23,9 +23,9 @@ else
             echo "Content-language: de"
             echo
             echo "LOAD"
-            echo "Die 'load' Ressource enth&auml;lt das Unix-System Lastinformationen f&uuml;r diesen Server."
-            echo "GET ist die einzige g&uuml;ltige Methode."
-            echo "Daten als application/json zur&uuml;ck."
+            echo "Die 'load' Ressource enthält das Unix-System Lastinformationen für diesen Server."
+            echo "GET ist die einzige gültige Methode."
+            echo "Daten als application/json zurück."
         fi
     else
         if [ "$accept" != "${accept/text\/html}" ] ; then
