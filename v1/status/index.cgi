@@ -1,15 +1,16 @@
 #!/usr/local/bin/bash
 
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
 dir=`dirname $0`
 filename=$dir/status.txt
-status=`cat $filename`
 
 method=${REQUEST_METHOD^^}
 
 if [ "$method" == "GET" ] ; then
     echo "Content-type: text/plain"
     echo
-    echo "$status"
+    cat $filename
 else
     if [ "$method" == "PUT" ] ; then
         read -n $CONTENT_LENGTH status

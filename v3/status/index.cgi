@@ -1,20 +1,24 @@
 #!/usr/local/bin/bash
 
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
 dir=`dirname $0`
 filename=$dir/status.txt
-status=`cat $filename`
 
-accept=${HTTP_ACCEPT,,}
 method=${REQUEST_METHOD^^}
 
 if [ "$method" == "GET" ] ; then
-    if [ "$accept" != "${accept/application\/json/}" ] ; then
+    accept=${HTTP_ACCEPT,,}   # lowercase
+    # $accept may have multiple content types, so we can't do an exact match.
+    # Does $accept contain 'application/json'?
+    if [ -z ${accept##*application/json*} ] ; then
         # status file timestamp: will be different if content was changed, then changed back
-        #etag=`ls -l --time-style=+%s $filename | cut -d ' ' -f 6`
+        #   etag=`ls -l --time-style=+%s $filename | cut -d ' ' -f 6`
         # sha1 digest of status file contents: will only be different if content is actually different
         #   amazingly, this is slightly faster than timestamp formatting
+        status=`cat $filename`
         etag=`echo $status | sha1sum | cut -d ' ' -f 1`
-        if [ "$HTTP_IF_NONE_MATCH" == "$etag" ] ; then
+        if [[ -n "$HTTP_IF_NONE_MATCH" && "$HTTP_IF_NONE_MATCH" == "$etag" ]] ; then
             echo "Content-type: text/plain"
             echo "Status: 304"
             echo
@@ -25,7 +29,7 @@ if [ "$method" == "GET" ] ; then
             echo '{"status": "'$status'"}'
         fi
     else
-        if [ "$accept" != "${accept/text\/html}" ] ; then
+        if [ -z ${accept##*text/html*} ] ; then
             echo "Content-type: text/html"
             echo
             echo "<h1><code>status</code></h1>"

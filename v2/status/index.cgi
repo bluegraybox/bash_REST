@@ -1,19 +1,23 @@
 #!/usr/local/bin/bash
 
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
 dir=`dirname $0`
 filename=$dir/status.txt
-status=`cat $filename`
 
-accept=${HTTP_ACCEPT,,}
 method=${REQUEST_METHOD^^}
 
 if [ "$method" == "GET" ] ; then
-    if [ "$accept" != "${accept/application\/json/}" ] ; then
+    accept=${HTTP_ACCEPT,,}  # lowercase
+    # $accept may have multiple content types, so we can't do an exact match.
+    # Does $accept contain 'application/json'?
+    if [ -z ${accept##*application/json*} ] ; then
+        status=`cat $filename`
         echo "Content-type: application/json"
         echo
         echo '{"status": "'$status'"}'
     else
-        if [ "$accept" != "${accept/text\/html}" ] ; then
+        if [ -z ${accept##*text/html*} ] ; then
             echo "Content-type: text/html"
             echo
             echo "<h1><code>status</code></h1>"
@@ -29,6 +33,7 @@ if [ "$method" == "GET" ] ; then
             echo "GET and PUT are valid methods."
             echo "The valid status codes are GREEN, YELLOW and RED."
             echo "Data is returned as application/json."
+            echo "Accept: '$accept'"
         fi
     fi
 else
