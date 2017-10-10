@@ -95,7 +95,7 @@ On my machine, this script is saved as `public_html/api/v1/load/index.cgi`. That
 We can also use `netcat` in place of Chrome. Instead of listening on a port, we open a connection to the web server's port:
 
 ```
-$ netcat localhost 80
+$ nc -c localhost 80
 ```
 
 Then I type:
