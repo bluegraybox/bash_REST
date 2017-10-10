@@ -57,11 +57,18 @@ curl -si -X PUT -d RED $BASE_URL/api/v2/status/
 
 ### Version 3
 
-This version adds response cacheing to `status`. GET responses now include an `ETag` header (a sha1 digest of the status code). If that value is included as a `If-None-Match` header in later requests, you'll get a 304 response as long as the status remains unchanged.
+This version adds response caching to `status`. GET responses now include an `ETag` header (a sha1 digest of the status code). If that value is included as a `If-None-Match` header in later requests, you'll get a 304 response as long as the status remains unchanged.
 
 ```
-curl -si -H "Accept: application/json" http://localhost/~colin/api/v3/status/
-curl -si -H "Accept: application/json" -H "If-None-Match: 620e41f9a45c62acb7b0ef0566b4e9ac911f4244" http://localhost/~colin/api/v3/status/
+curl -si -H "Accept: application/json" $BASE_URL/api/v3/status/
+curl -si -H "Accept: application/json" -H "If-None-Match: 620e41f9a45c62acb7b0ef0566b4e9ac911f4244" $BASE_URL/api/v3/status/
+```
+
+In `load`, we add API documentation in German, which you can request with the `Accept-Language` header.
+
+```
+curl -si -H "Accept-Language: de" $BASE_URL/api/v3/load/
+curl -si -H "Accept: text/html" -H "Accept-Language: de" $BASE_URL/api/v3/load/
 ```
 
 ## Example session
@@ -184,7 +191,7 @@ Content-Type: text/plain
 
 ```
 ```
-$  curl -si -H "Accept: application/json" http://localhost/~colin/api/v3/status/
+$  curl -si -H "Accept: application/json" $BASE_URL/api/v3/status/
 HTTP/1.1 200 OK
 Date: Mon, 18 Aug 2014 18:35:38 GMT
 Server: Apache/2.4.7 (Ubuntu)
@@ -195,9 +202,39 @@ Content-Type: application/json
 {"status": "RED"}
 ```
 ```
-$  curl -si -H "Accept: application/json" -H "If-None-Match: 620e41f9a45c62acb7b0ef0566b4e9ac911f4244" http://localhost/~colin/api/v3/status/
+$  curl -si -H "Accept: application/json" -H "If-None-Match: 620e41f9a45c62acb7b0ef0566b4e9ac911f4244" $BASE_URL/api/v3/status/
 HTTP/1.1 304 Not Modified
 Date: Mon, 18 Aug 2014 18:35:53 GMT
 Server: Apache/2.4.7 (Ubuntu)
 
+```
+```
+$ curl -si -H "Accept-Language: de" $BASE_URL/api/v3/load/
+HTTP/1.1 200 OK
+Date: Fri, 29 Aug 2014 23:22:21 GMT
+Server: Apache/2.4.7 (Ubuntu)
+Content-language: de
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: text/plain
+
+LOAD
+Die 'load' Ressource enthält das Unix-System Lastinformationen für diesen Server.
+GET ist die einzige gültige Methode.
+Daten als application/json zurück.
+```
+```
+$ curl -si -H "Accept: text/html" -H "Accept-Language: de" $BASE_URL/api/v3/load/
+HTTP/1.1 200 OK
+Date: Fri, 29 Aug 2014 23:22:21 GMT
+Server: Apache/2.4.7 (Ubuntu)
+Content-language: de
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: text/html
+
+<h1><code>load</code></h1>
+<p>Die 'load' Ressource enth&auml;lt das Unix-System Lastinformationen f&uuml;r diesen Server.</p>
+<p><code>GET</code> ist die einzige g&uuml;ltige Methode.</p>
+<p>Daten als <code>application/json</code> zur&uuml;ck.</p>
 ```
